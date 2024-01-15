@@ -12,14 +12,10 @@ const ListCoursesComponent = () => {
   const [statusCode, setStatusCode] = useState(null);
 
   useEffect(() => {
-    let isMounted = true;
-
     const getCourses = async () => {
       try {
         const response = await CourseService.getCourses();
-        if (isMounted) {
-          setCourses(response.data);
-        }
+        setCourses(response.data);
       } catch (error) {
         setError(error.message || 'Error getting courses');
         setStatusCode(error.response ? error.response.status : null);
@@ -28,9 +24,6 @@ const ListCoursesComponent = () => {
 
     getCourses();
 
-    return () => {
-      isMounted = false;
-    };
   }, []);
 
   const createCourse = () => {
